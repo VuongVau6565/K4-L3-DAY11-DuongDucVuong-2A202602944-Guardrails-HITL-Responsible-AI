@@ -134,3 +134,19 @@ pip install -r requirements.txt
 Rồi mở [`CHECKPOINTS.md`](CHECKPOINTS.md) và làm lần lượt Checkpoint 1 → 5.
 
 Nộp theo [`SUBMISSION.md`](SUBMISSION.md) · Quy định: [`RULES.md`](RULES.md).
+
+## Demo tích hợp VinBank AI Safety Lab
+
+Dashboard tại [`demo/index.html`](demo/index.html) gọi các agent LLM có sẵn trong repository qua backend Python:
+
+- **Blue:** OpenRouter `liquid/lfm-2.5-2.6b` qua factory `create_blue_agent` và pipeline Rate Limit → Input Guardrails → LLM → Output Guardrails.
+- **Red:** factory `create_red_agent_default` (không có guardrails mạnh).
+- **Red Advance:** factory `create_red_agent_advance` (guardrails mạnh).
+
+Thiết lập `.env` theo mục “Cách bắt đầu” phía trên, bao gồm `OPENROUTER_API_KEY` cho Blue và `RED_TEAM_PROVIDER` cùng API key tương ứng cho Red. Không nhập khóa vào trình duyệt. Sau khi cài dependencies, chạy từ gốc repository:
+
+```powershell
+python -m uvicorn demo.server:app --host 127.0.0.1 --port 8000
+```
+
+Mở <http://127.0.0.1:8000>. Gọi model cần kết nối Internet và có thể phát sinh chi phí API. Lỗi cấu hình hoặc gọi model được báo rõ trên giao diện; backend không tạo phản hồi giả khi model lỗi. Audit và metrics của dashboard được ghi riêng vào `outputs/ui_audit_log.json` và `outputs/ui_metrics.json`, không ghi đè kết quả bài lab. Giao dịch chỉ dừng ở bước mô phỏng Human-in-the-Loop — không có API chuyển tiền hoặc kết nối ngân hàng.
