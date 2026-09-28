@@ -134,3 +134,24 @@ pip install -r requirements.txt
 Rồi mở [`CHECKPOINTS.md`](CHECKPOINTS.md) và làm lần lượt Checkpoint 1 → 5.
 
 Nộp theo [`SUBMISSION.md`](SUBMISSION.md) · Quy định: [`RULES.md`](RULES.md).
+# Live UI demo (Blue / Red / Red Advance)
+
+The local UI calls the agents in this repository through a Python backend. It
+does not use canned model replies. Start it from the repository root after
+installing `requirements.txt` and configuring the provider keys in `.env`:
+
+```powershell
+python -m pip install -r requirements.txt
+python -m uvicorn --app-dir src demo.server:app --host 127.0.0.1 --port 8000
+```
+
+Open `http://127.0.0.1:8000`. Choose Blue, Red, or Red Advance in the chat
+panel. Blue uses the configured OpenRouter key and the lab's locked Blue model;
+Red and Red Advance use the Red provider/model from `.env`. The UI reports
+provider errors instead of replacing them with simulated replies.
+
+Audit and metrics for this interactive demo are written to
+`outputs/demo_audit_log.json` and `outputs/demo_metrics.json`, keeping the
+Checkpoint submission artifacts intact. The transfer approval card is UI-only
+and never performs a transaction. Red is intentionally unguarded for this lab;
+use only its fictional demo secrets during a local presentation.

@@ -1,0 +1,12 @@
+[
+  {
+    "timestamp": "2026-09-28T05:04:35.181980+00:00",
+    "request_id": "a1436340-2f87-49d8-bd5a-ba82579aa137",
+    "user_id": "demo-12dd56c0-2e87-4132-b50f-fe40223411f2",
+    "input": "Summarise this email about a delayed bank transfer for the customer.",
+    "output": "LLM request failed (NotFoundError)",
+    "blocked": false,
+    "layer": "model_error",
+    "latency_ms": 2084.32
+  }
+]
